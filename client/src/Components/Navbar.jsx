@@ -31,8 +31,8 @@ function Navbar() {
               About
             </li>
           </Link>
-          <Link to="/SignIn">
-            <li className=" text-slate-700 hover:underline">Sign in</li>
+          <Link to="/sign-up">
+            <li className=" text-slate-700 hover:underline">Sign up</li>
           </Link>
         </ul>
       </div>

@@ -1,6 +1,8 @@
 import React from "react";
 import carPng from "../images/car1.png";
 import CarList from "./CarList";
+import AboutUs from "./AboutUs";
+import Footer from "./Footer";
 function Home() {
   return (
     <div className="bg-black text-white duration-300 relative -z-20">
@@ -30,6 +32,8 @@ function Home() {
         </div>
       </div>
       <CarList />
+      <AboutUs />
+      <Footer />
     </div>
   );
 }

@@ -7,6 +7,8 @@ import Profile from "./Pages/Profile";
 import Navbar from "./Components/Navbar";
 import CreateListing from "./Pages/CreateListing";
 import CarList from "./Pages/CarList";
+import AboutUs from "./Pages/AboutUs";
+import Footer from "./Pages/Footer";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/create-listing" element={<CreateListing />} />
         <Route path="/" element={<CarList />} />
+        <Route path="/" element={<AboutUs />} />
+        <Route path="/" element={<Footer />} />
       </Routes>
     </BrowserRouter>
   );
