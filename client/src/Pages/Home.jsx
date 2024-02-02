@@ -6,7 +6,7 @@ import Footer from "./Footer";
 function Home() {
   return (
     <div className="bg-black text-white duration-300 relative -z-20">
-      <div className="container min-h-[620px] flex">
+      <div className="container min-h-[620px] flex ">
         <div className="grid place-items-center grid-cols-1 sm:grid-cols-2">
           <div className="order-1 sm:order-2">
             <img

@@ -26,9 +26,9 @@ function Navbar() {
               Home
             </li>
           </Link>
-          <Link to="/about">
+          <Link to="/contact">
             <li className="hidden sm:inline text-slate-700 hover:underline">
-              About
+              Contact
             </li>
           </Link>
           <Link to="/sign-up">
