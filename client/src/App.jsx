@@ -9,9 +9,8 @@ import CreateListing from "./Pages/CreateListing";
 import CarList from "./Pages/CarList";
 import AboutUs from "./Pages/AboutUs";
 import Footer from "./Pages/Footer";
-import Chat from "./Pages/Chat";
-import Bot from "./Pages/Bot";
 import Contact from "./Pages/Contact";
+import B from "./Pages/B";
 
 function App() {
   return (
@@ -29,7 +28,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/contact" element={<Navbar />} />
         {/* <Route path="/chat" element={<Chat />} /> */}
-        <Route path="/bot" element={<Bot />} />
+        <Route path="/bot" element={<B />} />
       </Routes>
     </BrowserRouter>
   );
