@@ -123,7 +123,7 @@
 
 import React, { useState, useEffect } from "react";
 
-const API_KEY = "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";
+const API_KEY = "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";
 
 function B() {
   const [inputMessage, setInputMessage] = useState("");
@@ -224,23 +224,23 @@ function B() {
   return (
     <div className="flex flex-col h-screen justify-between bg-gray-100 p-4">
       <div
-        className="flex-1 overflow-y-auto border border-gray-300 p-4 mb-4"
+        className="flex-1  flex flex-col overflow-y-auto border border-gray-300 p-4 mb-4"
         id="chat-container"
       >
         {chatMessages.map((message, index) => (
           <div
             key={index}
-            className={`w-[600px] file:mb-3 p-2 rounded ${
+            className={`w-fit  file:mb-3 p-3 rounded mt-4  ${
               message.position === "right"
                 ? "bg-blue-500 text-white self-end"
-                : "bg-gray-300 text-black self-start"
+                : "bg-gray-300 text-black self-start "
             }`}
           >
             {message.text}
           </div>
         ))}
         {loading && (
-          <div className="w-[600px] p-2 rounded bg-gray-300 text-gray-700">
+          <div className="w-fit p-2 rounded bg-gray-300 text-gray-700 self-start mt-2 mb-4">
             Bot is Typing...
           </div>
         )}

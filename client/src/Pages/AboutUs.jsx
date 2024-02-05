@@ -4,7 +4,7 @@ import car5 from "../images/car5.png";
 const AboutUs = () => {
   return (
     <div className="bg-dark bg-slate-100 sm:min-h-[600px] sm:grid sm:place-items-center duration-300">
-      <div className="container">
+      <div className="p-5 sm:px-10 md:px-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center">
           <div>
             <img

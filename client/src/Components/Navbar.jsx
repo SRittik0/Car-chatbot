@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
-    <header className="bg-slate-200">
+    <header className="bg-blue-500">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
         <Link to="/">
           <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
@@ -21,21 +21,23 @@ function Navbar() {
         </form>
 
         <ul className="flex gap-4">
-          <Link to="/">
-            <li className="hidden sm:inline text-slate-700 hover:underline">
-              Home
+          <Link to="/carlistingform">
+            <li className="hidden sm:inline text-white hover:underline">
+              List
             </li>
           </Link>
           <Link to="/contact">
-            <li className="hidden sm:inline text-slate-700 hover:underline">
+            <li className="hidden sm:inline text-white hover:underline">
               Contact
             </li>
           </Link>
           <Link to="/sign-up">
-            <li className=" text-slate-700 hover:underline">Sign up</li>
+            <li className=" text-white hover:underline">Sign up</li>
           </Link>
           <Link to="/profile">
-            <li className=" text-slate-700 hover:underline">Profile</li>
+            <li className=" hidden sm:inline text-white hover:underline">
+              Profile
+            </li>
           </Link>
         </ul>
       </div>

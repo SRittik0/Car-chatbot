@@ -27,7 +27,7 @@ const carList = [
 const CarList = () => {
   return (
     <div className="pb-24">
-      <div className="container">
+      <div className="p-5 sm:px-10 md:px-20">
         {/* Heading */}
         <h1 className="text-3xl sm:text-4xl font-semibold font-serif mb-3">
           Lorem ipsum dolor

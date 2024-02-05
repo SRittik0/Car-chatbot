@@ -11,6 +11,8 @@ import AboutUs from "./Pages/AboutUs";
 import Footer from "./Pages/Footer";
 import Contact from "./Pages/Contact";
 import B from "./Pages/B";
+import SearchInput from "./Components/SearchInput";
+import CarListingForm from "./Pages/CarListingForm";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
         <Route path="/contact" element={<Navbar />} />
         {/* <Route path="/chat" element={<Chat />} /> */}
         <Route path="/bot" element={<B />} />
+        <Route path="/search" element={<SearchInput />} />
+        <Route path="/carlistingform" element={<CarListingForm />} />
       </Routes>
     </BrowserRouter>
   );

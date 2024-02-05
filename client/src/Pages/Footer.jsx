@@ -27,8 +27,8 @@ const FooterLinks = [
 ];
 const Footer = () => {
   return (
-    <div className="bg-dark mt-14 rounded-t-3xl">
-      <section className="container">
+    <div className="bg-gray mt-14 rounded-t-3xl">
+      <section className="p-3 sm:px-8 md:px-18">
         <div className=" grid md:grid-cols-3 py-5">
           {/* company Details */}
           <div className=" py-8 px-4 ">

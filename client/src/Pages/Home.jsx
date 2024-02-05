@@ -3,10 +3,12 @@ import carPng from "../images/car1.png";
 import CarList from "./CarList";
 import AboutUs from "./AboutUs";
 import Footer from "./Footer";
+import SearchInput from "../Components/SearchInput";
+import { Link } from "react-router-dom";
 function Home() {
   return (
-    <div className="bg-black text-white duration-300 relative -z-20">
-      <div className="container min-h-[620px] flex ">
+    <div className=" text-black duration-300 relative -z-20 ">
+      <div className="container min-h-[620px] flex p-5 sm:px-10 md:px-20">
         <div className="grid place-items-center grid-cols-1 sm:grid-cols-2">
           <div className="order-1 sm:order-2">
             <img
@@ -18,22 +20,29 @@ function Home() {
           <div className="order-2 sm:order-1 space-y-5 sm:pr-32">
             <p className="text-2xl font-serif">Effortless</p>
             <h1 className="text-5xl lg:text-7xl font-semibold font-serif">
-              Car rental
+              Premium Car rental
             </h1>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam,
-              eius aliquid minus sint sit fugit. Nam ipsam porro, est, rerum
-              labore magnam, ex obcaecati ut dicta alias quasi minima id.
+            <p className="text-gray-400">
+              Book the selected car effortlessly, Pay for driving only, Book the
+              Car Now
             </p>
-            <button className="btn bg-yellow-300 text-black px-6 py-2 rounded-md hover:bg-yellow text-2xl">
-              Get Started
+
+            <button className="btn bg-blue-500 text-white  px-6 py-2 rounded-full hover:bg-yellow text-xl cursor-pointer">
+              Explore
             </button>
           </div>
         </div>
       </div>
+      <SearchInput />
       <CarList />
       <AboutUs />
       <Footer />
+
+      <Link to="/bot" className="fixed bottom-10 right-10 z-50">
+        <button className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-yellow text-xl cursor-pointer">
+          Chat
+        </button>
+      </Link>
     </div>
   );
 }
