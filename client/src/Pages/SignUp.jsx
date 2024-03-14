@@ -16,7 +16,7 @@ function SignUp() {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await fetch("/server/auth/signup", {
+      const res = await fetch("http://localhost:5001/server/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,6 +35,7 @@ function SignUp() {
       navigate("/sign-in");
     } catch (error) {
       setLoading(false);
+      console.log(error);
       setError(error.message);
     }
   };

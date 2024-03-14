@@ -1,12 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
-    <header className="bg-blue-500">
+    <header className="bg-black">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
         <Link to="/">
-          <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
+          <h1 className="font-bold text-sm sm:text-xl flex flex-wrap text-white">
             <span className="text-orange-400">Ride</span>
             <span className="text-orange-600">Fleet</span>
           </h1>
@@ -15,30 +15,29 @@ function Navbar() {
           <input
             type="text"
             placeholder="Search"
-            //responsiveness search bar mobile : w-24
-            className="bg-transparent focus:outline-none w-24 sm:w-64"
+            className="bg-transparent focus:outline-none w-24 sm:w-64 text-black"
           />
         </form>
 
         <ul className="flex gap-4">
-          <Link to="/carlistingform">
+          <NavLink to="/carlistingform" activeClassName="underline">
             <li className="hidden sm:inline text-white hover:underline">
               List
             </li>
-          </Link>
-          <Link to="/contact">
+          </NavLink>
+          <NavLink to="/contact" activeClassName="underline">
             <li className="hidden sm:inline text-white hover:underline">
               Contact
             </li>
-          </Link>
-          <Link to="/sign-up">
-            <li className=" text-white hover:underline">Sign up</li>
-          </Link>
-          <Link to="/profile">
-            <li className=" hidden sm:inline text-white hover:underline">
+          </NavLink>
+          <NavLink to="/sign-up" activeClassName="underline">
+            <li className="text-white hover:underline">Sign up</li>
+          </NavLink>
+          <NavLink to="/profile" activeClassName="underline">
+            <li className="hidden sm:inline text-white hover:underline">
               Profile
             </li>
-          </Link>
+          </NavLink>
         </ul>
       </div>
     </header>

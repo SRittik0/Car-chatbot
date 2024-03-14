@@ -3,7 +3,7 @@ import car5 from "../images/car5.png";
 
 const AboutUs = () => {
   return (
-    <div className="bg-dark bg-slate-100 sm:min-h-[600px] sm:grid sm:place-items-center duration-300">
+    <div className="bg-gradient-to-r from-dark to-slate-100 sm:min-h-[600px] sm:grid sm:place-items-center duration-300 ">
       <div className="p-5 sm:px-10 md:px-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center">
           <div>
@@ -16,19 +16,19 @@ const AboutUs = () => {
           <div>
             <div className="space-y-5 sm:p-16 pb-6">
               <h1 className="text-3xl sm:text-4xl font-bold font-serif text-black">
-                About us
+                About Us
               </h1>
-              <p className="leading-8 tracking-wide text-black">
+              <p className="leading-8 tracking-wide text-slate-500">
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                 Aspernatur, magnam! Tenetur odio quo et maxime?
               </p>
-              <p className="text-black">
+              <p className="text-slate-500">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi,
                 tempora.
               </p>
-              <buttton className="btn bg-yellow-300 text-black px-6 py-2 rounded-md hover:bg-yellow text-xl">
+              <button className="btn bg-orange-500 text-white px-6 py-2 rounded-md hover:bg-orange-400 text-xl">
                 Get Started
-              </buttton>
+              </button>
             </div>
           </div>
         </div>

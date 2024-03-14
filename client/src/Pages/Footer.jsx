@@ -25,52 +25,50 @@ const FooterLinks = [
     link: "/#blog",
   },
 ];
+
 const Footer = () => {
   return (
-    <div className="bg-gray mt-14 rounded-t-3xl">
+    <div className="bg-black text-white mt-14 rounded-t-3xl">
       <section className="p-3 sm:px-8 md:px-18">
-        <div className=" grid md:grid-cols-3 py-5">
-          {/* company Details */}
-          <div className=" py-8 px-4 ">
-            <h1 className="sm:text-3xl text-xl font-bold sm:text-left text-justify mb-3 flex items-center gap-3 font-serif">
+        <div className="grid md:grid-cols-3 py-5">
+          {/* Company Details */}
+          <div className="py-8 px-4">
+            <h1 className="text-3xl font-bold mb-3 flex items-center gap-3 font-serif">
               Car Rental
             </h1>
             <p className="text-sm">
               Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Possimus, voluptate.{" "}
+              consectetur adipisicing elit. Possimus, voluptate.
             </p>
-            <br />
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 mt-3">
               <FaLocationArrow />
-              <p>London, United Kindgdom</p>
+              <p>London, United Kingdom</p>
             </div>
             <div className="flex items-center gap-3 mt-3">
               <FaMobileAlt />
               <p>+44 744928339</p>
             </div>
-            {/* Social Handle */}
+            {/* Social Handles */}
             <div className="flex items-center gap-3 mt-6">
-              <a href="#">
-                <FaInstagram className="text-3xl hover:text-primary duration-300" />
+              <a href="#" className="hover:text-primary duration-300">
+                <FaInstagram className="text-3xl" />
               </a>
-              <a href="#">
-                <FaFacebook className="text-3xl hover:text-primary duration-300" />
+              <a href="#" className="hover:text-primary duration-300">
+                <FaFacebook className="text-3xl" />
               </a>
-              <a href="#">
-                <FaLinkedin className="text-3xl hover:text-primary duration-300" />
+              <a href="#" className="hover:text-primary duration-300">
+                <FaLinkedin className="text-3xl" />
               </a>
             </div>
           </div>
           {/* Links */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 col-span-2 md:pl-10 ">
+          <div className="grid grid-cols-2 sm:grid-cols-3 col-span-2 md:pl-10">
             <div className="">
-              <div className="py-8 px-4 ">
-                <h1 className="sm:text-xl text-xl font-bold sm:text-left text-justify mb-3">
-                  Important Links
-                </h1>
-                <ul className={`flex flex-col gap-3`}>
+              <div className="py-8 px-4">
+                <h1 className="text-xl font-bold mb-3">Important Links</h1>
+                <ul className="flex flex-col gap-3">
                   {FooterLinks.map((link) => (
-                    <li className="cursor-pointer hover:translate-x-1 duration-300 hover:!text-primary space-x-1 text-gray-500 dark:text-gray-200">
+                    <li className="cursor-pointer hover:underline duration-300 hover:text-primary">
                       <span>&#11162;</span>
                       <span>{link.title}</span>
                     </li>
@@ -79,13 +77,11 @@ const Footer = () => {
               </div>
             </div>
             <div className="">
-              <div className="py-8 px-4 ">
-                <h1 className="sm:text-xl text-xl font-bold sm:text-left text-justify mb-3">
-                  Links
-                </h1>
+              <div className="py-8 px-4">
+                <h1 className="text-xl font-bold mb-3">Links</h1>
                 <ul className="flex flex-col gap-3">
                   {FooterLinks.map((link) => (
-                    <li className="cursor-pointer hover:translate-x-1 duration-300 hover:!text-primary space-x-1 text-gray-500 dark:text-gray-200">
+                    <li className="cursor-pointer hover:underline duration-300 hover:text-primary">
                       <span>&#11162;</span>
                       <span>{link.title}</span>
                     </li>

@@ -29,33 +29,37 @@ const CarList = () => {
     <div className="pb-24">
       <div className="p-5 sm:px-10 md:px-20">
         {/* Heading */}
-        <h1 className="text-3xl sm:text-4xl font-semibold font-serif mb-3">
-          Lorem ipsum dolor
+        <h1 className="text-3xl sm:text-4xl font-semibold font-serif mb-3 text-black">
+          Discover Our Fleet
         </h1>
-        <p className="text-sm pb-10">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor iure
-          nemo ab?
+        <p className="text-sm text-gray-500 pb-10">
+          Explore our premium car selection for an amazing driving experience.
         </p>
         {/* Car listing */}
         <div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-16">
-            {carList.map((data) => (
-              <div className="space-y-3 border-2 border-gray-300 hover:border-primary p-3 rounded-xl relative group">
-                <div className="w-full h-[120px]">
+            {carList.map((data, index) => (
+              <div
+                key={index}
+                className="group overflow-hidden relative border-2 border-gray-300 hover:border-primary rounded-xl shadow-md"
+              >
+                <div className="w-full h-[180px] overflow-hidden">
                   <img
                     src={data.image}
                     alt=""
-                    className="w-full h-[120px] object-contain sm:translate-x-8 group-hover:sm:translate-x-16 duration-700"
+                    className="w-full h-full object-cover transform scale-100 transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
-                <div className="space-y-2">
+                <div className="p-4 bg-white">
                   <h1 className="text-primary font-semibold">{data.name}</h1>
                   <div className="flex justify-between items-center text-xl font-semibold">
                     <p>${data.price}/Day</p>
-                    <a href="#">Details</a>
+                    <a href="#" className="text-primary hover:underline">
+                      Details
+                    </a>
                   </div>
                 </div>
-                <p className="text-xl font-semibold absolute top-0 left-3">
+                <p className="text-xl font-semibold absolute top-2 left-4 text-black">
                   12Km
                 </p>
               </div>
@@ -64,7 +68,9 @@ const CarList = () => {
         </div>
         {/* End of car listing */}
         <div className="grid place-items-center mt-8">
-          <button className="button-outline">Get Started</button>
+          <button className="btn bg-orange-500 text-white px-6 py-2 rounded-md hover:bg-orange-400 text-xl">
+            View
+          </button>
         </div>
       </div>
     </div>
