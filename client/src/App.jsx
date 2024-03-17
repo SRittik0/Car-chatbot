@@ -13,6 +13,7 @@ import Contact from "./Pages/Contact";
 import B from "./Pages/B";
 import SearchInput from "./Components/SearchInput";
 import CarListingForm from "./Pages/CarListingForm";
+import PrivateRoute from "./Components/PrivateRoute";
 
 function App() {
   return (
@@ -22,7 +23,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignOut />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
+
         <Route path="/create-listing" element={<CreateListing />} />
         <Route path="/" element={<CarList />} />
         <Route path="/" element={<AboutUs />} />
