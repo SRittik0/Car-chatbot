@@ -5,6 +5,7 @@ import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import carRouter from "./routes/cars.route.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 dotenv.config();
 
 mongoose
@@ -19,6 +20,7 @@ mongoose
 const app = express();
 
 app.use(express.json()); //allow json as the input of the server
+app.use(cookieParser());
 app.use(
   cors({
     origin: process.env.CLIENT_BASE_URL,
