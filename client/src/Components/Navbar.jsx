@@ -31,9 +31,6 @@ function Navbar() {
               Contact
             </li>
           </NavLink>
-          <NavLink to="/sign-up" activeClassName="underline">
-            <li className="text-white hover:underline">Sign Up</li>
-          </NavLink>
 
           <NavLink to="/profile" activeClassName="underline">
             {currentUser ? (
