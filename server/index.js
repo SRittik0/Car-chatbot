@@ -18,9 +18,7 @@ mongoose
   });
 
 const app = express();
-
-app.use(express.json()); //allow json as the input of the server
-app.use(cookieParser());
+app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(
   cors({
     origin: process.env.CLIENT_BASE_URL,
@@ -30,6 +28,8 @@ app.use(
 );
 
 app.set("trust proxy", 1);
+app.use(express.json()); //allow json as the input of the server
+app.use(cookieParser());
 
 app.listen(5001, () => {
   console.log("Server is running on port 5001");
