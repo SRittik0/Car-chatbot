@@ -2,16 +2,32 @@ import mongoose from "mongoose";
 
 const carSchema = new mongoose.Schema(
   {
-    model: {
+    name: {
       type: String,
       required: true, //no number , symbols etc
     },
-    brand: {
+    make: {
+      type: String,
+      required: true,
+    },
+    model: {
       type: String,
       required: true,
     },
     price: {
       type: Number,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    imageUrls: {
+      type: Array,
+      required: true,
+    },
+    userRef: {
+      type: String,
       required: true,
     },
   },

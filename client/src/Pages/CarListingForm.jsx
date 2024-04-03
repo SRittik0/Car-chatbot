@@ -1,7 +1,81 @@
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
 import React, { useState } from "react";
-import Footer from "./Footer";
+import { app } from "../firebase";
 
 const CarListingForm = () => {
+  const [files, setFiles] = useState([]);
+  const [formData, setFormData] = useState({
+    imageUrls: [],
+  });
+
+  const [imageUploadError, setImageUploadError] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  console.log(formData);
+  const handleImageSubmit = (e) => {
+    if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
+      setUploading(true);
+      setImageUploadError(false);
+      const promises = [];
+
+      for (let i = 0; i < files.length; i++) {
+        promises.push(storeImage(files[i]));
+      }
+      Promise.all(promises)
+        .then((urls) => {
+          setFormData({
+            ...formData,
+            imageUrls: formData.imageUrls.concat(urls),
+          });
+          setImageUploadError(false);
+          setUploading(false);
+        })
+        .catch((err) => {
+          setImageUploadError("Image upload failed (2mb max per image)");
+          setUploading(false);
+        });
+    } else {
+      setImageUploadError("You can only upload 6 images per listing");
+      setUploading(false);
+    }
+  };
+
+  const storeImage = async (file) => {
+    return new Promise((resolve, reject) => {
+      const storage = getStorage(app);
+      const fileName = new Date().getTime() + file.name;
+      const storageRef = ref(storage, fileName);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(`Upload is ${progress}% done`);
+        },
+        (error) => {
+          reject(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            resolve(downloadURL);
+          });
+        }
+      );
+    });
+  };
+
+  const handleRemoveImage = (index) => {
+    setFormData({
+      ...formData,
+      imageUrls: formData.imageUrls.filter((_, i) => i !== index),
+    });
+  };
+
   const [carInfo, setCarInfo] = useState({
     image: "",
     make: "",
@@ -40,37 +114,14 @@ const CarListingForm = () => {
   };
 
   return (
-    <div className="m-11 max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
-      <h2 className="text-2xl font-semibold mb-4">List Your Car</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label
-            htmlFor="image"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Car Image
-          </label>
-          <input
-            type="file"
-            id="image"
-            name="image"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:border-blue-500"
-          />
-          {carInfo.image && (
-            <img
-              src={carInfo.image}
-              alt="Car Preview"
-              className="mt-2 max-h-40 object-cover w-full"
-            />
-          )}
-        </div>
-        <div className="grid grid-cols-2 gap-4">
+    <div className="container mx-auto py-8">
+      <h1 className="text-2xl font-bold mb-4">List Your Car</h1>
+      <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="mb-4">
             <label
               htmlFor="make"
-              className="block text-sm font-medium text-gray-600"
+              className="block text-sm font-medium text-gray-600 mb-2"
             >
               Make
             </label>
@@ -80,14 +131,14 @@ const CarListingForm = () => {
               name="make"
               value={carInfo.make}
               onChange={handleInputChange}
-              className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:border-blue-500"
               required
             />
           </div>
           <div className="mb-4">
             <label
               htmlFor="model"
-              className="block text-sm font-medium text-gray-600"
+              className="block text-sm font-medium text-gray-600 mb-2"
             >
               Model
             </label>
@@ -97,16 +148,16 @@ const CarListingForm = () => {
               name="model"
               value={carInfo.model}
               onChange={handleInputChange}
-              className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:border-blue-500"
               required
             />
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="mb-4">
             <label
               htmlFor="year"
-              className="block text-sm font-medium text-gray-600"
+              className="block text-sm font-medium text-gray-600 mb-2"
             >
               Year
             </label>
@@ -116,14 +167,14 @@ const CarListingForm = () => {
               name="year"
               value={carInfo.year}
               onChange={handleInputChange}
-              className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:border-blue-500"
               required
             />
           </div>
           <div className="mb-4">
             <label
               htmlFor="price"
-              className="block text-sm font-medium text-gray-600"
+              className="block text-sm font-medium text-gray-600 mb-2"
             >
               Price (USD)
             </label>
@@ -133,7 +184,7 @@ const CarListingForm = () => {
               name="price"
               value={carInfo.price}
               onChange={handleInputChange}
-              className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:border-blue-500"
               required
             />
           </div>
@@ -141,7 +192,7 @@ const CarListingForm = () => {
         <div className="mb-4">
           <label
             htmlFor="description"
-            className="block text-sm font-medium text-gray-600"
+            className="block text-sm font-medium text-gray-600 mb-2"
           >
             Description
           </label>
@@ -150,17 +201,78 @@ const CarListingForm = () => {
             name="description"
             value={carInfo.description}
             onChange={handleInputChange}
-            className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:border-blue-500"
+            className="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:border-blue-500"
             rows="4"
             required
           ></textarea>
         </div>
-        <button
-          type="submit"
-          className="bg-slate-700 text-white py-2 px-4 rounded-md hover:bg-blue-600 cursor-pointer"
-        >
-          Submit Listing
-        </button>
+
+        <div className="mb-4">
+          <label
+            htmlFor="image"
+            className="block text-sm font-medium text-gray-600 mb-2"
+          >
+            Car Image
+          </label>
+          <div className="flex items-center gap-2">
+            <input
+              type="file"
+              id="image"
+              name="image"
+              accept="image/*"
+              multiple
+              onChange={(e) => setFiles(e.target.files)}
+              className="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:border-blue-500"
+            />
+            <button
+              onClick={handleImageSubmit}
+              type="button"
+              disabled={uploading}
+              className=" border border-orange-700 text-orange-700 py-2 px-4 rounded uppercase hover:shadow-lg disabled:opacity-80 cursor-pointer"
+            >
+              {uploading ? "Uploading..." : "Upload"}
+            </button>
+          </div>
+          <p className="text-red-700 text-sm">
+            {imageUploadError && imageUploadError}
+          </p>
+          {formData.imageUrls.length > 0 &&
+            formData.imageUrls.map((url, index) => (
+              <div
+                key={url}
+                className="flex justify-between p-3 border items-center"
+              >
+                <img
+                  src={url}
+                  alt="listing image"
+                  className="w-20 h-20 object-contain rounded-lg"
+                />
+                <button
+                  type="button"
+                  onClick={() => handleRemoveImage(index)}
+                  className="p-3 text-red-700 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+                >
+                  delete
+                </button>
+              </div>
+            ))}
+
+          {carInfo.image && (
+            <img
+              src={carInfo.image}
+              alt="Car Preview"
+              className="mt-2 w-full max-h-40 object-cover"
+            />
+          )}
+        </div>
+        <div className="flex justify-between mb-5">
+          <button
+            type="submit"
+            className="bg-slate-700 text-white py-2 px-4 rounded-lg uppercase hover:bg-yellow-500 cursor-pointer"
+          >
+            Submit Listing
+          </button>
+        </div>
       </form>
     </div>
   );

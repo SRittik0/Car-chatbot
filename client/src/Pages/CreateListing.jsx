@@ -2,19 +2,19 @@ import React from "react";
 
 export default function CreateListing() {
   return (
-    <main>
+    <main className="p-3 max-w-4xl mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">
-        Create Listing
+        Create a Listing
       </h1>
       <form className="flex flex-col sm:flex-row">
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 flex-1">
           <input
             type="text"
             placeholder="Name"
             className="border p-3 rounded-lg"
             id="name"
-            maxLength={62}
-            minLength={10}
+            maxLength="62"
+            minLength="10"
             required
           />
           <textarea
@@ -29,6 +29,8 @@ export default function CreateListing() {
             placeholder="Address"
             className="border p-3 rounded-lg"
             id="address"
+            maxLength="62"
+            minLength="10"
             required
           />
         </div>
