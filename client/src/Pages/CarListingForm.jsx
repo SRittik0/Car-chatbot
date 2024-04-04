@@ -6,15 +6,27 @@ import {
 } from "firebase/storage";
 import React, { useState } from "react";
 import { app } from "../firebase";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const CarListingForm = () => {
+  const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     imageUrls: [],
+    name: "",
+    make: "",
+    model: "",
+    year: "",
+    description: "",
+    price: "",
   });
 
   const [imageUploadError, setImageUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   console.log(formData);
   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
@@ -76,41 +88,48 @@ const CarListingForm = () => {
     });
   };
 
-  const [carInfo, setCarInfo] = useState({
-    image: "",
-    make: "",
-    model: "",
-    year: "",
-    description: "",
-    price: "",
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setCarInfo({
-      ...carInfo,
-      [name]: value,
-    });
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setCarInfo({
-          ...carInfo,
-          image: reader.result,
-        });
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your logic to handle the form submission (e.g., API call or state update)
-    console.log("Car information submitted:", carInfo);
+    try {
+      if (formData.imageUrls.length < 1)
+        return setError("You must upload at least one image");
+      setLoading(true);
+      setError(false);
+      const res = await fetch("http://localhost:5001/server/cars/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          ...formData,
+          userRef: currentUser._id,
+        }),
+      });
+      const data = await res.json();
+      setLoading(false);
+      if (data.success === false) {
+        setError(data.message);
+      }
+      navigate(`/listing/${data._id}`);
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+    }
+    console.log("Car information submitted:", formData);
+  };
+
+  const handleChange = (e) => {
+    if (
+      e.target.type === "number" ||
+      e.target.type === "text" ||
+      e.target.type === "textarea"
+    ) {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.value,
+      });
+    }
   };
 
   return (
@@ -129,12 +148,13 @@ const CarListingForm = () => {
               type="text"
               id="make"
               name="make"
-              value={carInfo.make}
-              onChange={handleInputChange}
+              value={formData.make}
+              onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:border-blue-500"
               required
             />
           </div>
+
           <div className="mb-4">
             <label
               htmlFor="model"
@@ -146,8 +166,8 @@ const CarListingForm = () => {
               type="text"
               id="model"
               name="model"
-              value={carInfo.model}
-              onChange={handleInputChange}
+              value={formData.model}
+              onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:border-blue-500"
               required
             />
@@ -165,8 +185,8 @@ const CarListingForm = () => {
               type="number"
               id="year"
               name="year"
-              value={carInfo.year}
-              onChange={handleInputChange}
+              value={formData.year}
+              onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:border-blue-500"
               required
             />
@@ -176,14 +196,14 @@ const CarListingForm = () => {
               htmlFor="price"
               className="block text-sm font-medium text-gray-600 mb-2"
             >
-              Price (USD)
+              Price (GBP)
             </label>
             <input
               type="number"
               id="price"
               name="price"
-              value={carInfo.price}
-              onChange={handleInputChange}
+              value={formData.price}
+              onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:border-blue-500"
               required
             />
@@ -199,8 +219,8 @@ const CarListingForm = () => {
           <textarea
             id="description"
             name="description"
-            value={carInfo.description}
-            onChange={handleInputChange}
+            value={formData.description}
+            onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:border-blue-500"
             rows="4"
             required
@@ -256,22 +276,16 @@ const CarListingForm = () => {
                 </button>
               </div>
             ))}
-
-          {carInfo.image && (
-            <img
-              src={carInfo.image}
-              alt="Car Preview"
-              className="mt-2 w-full max-h-40 object-cover"
-            />
-          )}
         </div>
         <div className="flex justify-between mb-5">
           <button
+            disabled={loading || uploading}
             type="submit"
             className="bg-slate-700 text-white py-2 px-4 rounded-lg uppercase hover:bg-yellow-500 cursor-pointer"
           >
-            Submit Listing
+            {loading ? "Creating..." : "Submit Listing"}
           </button>
+          {error && <p className="text-red-700 text-sm">{error}</p>}
         </div>
       </form>
     </div>

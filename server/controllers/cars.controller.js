@@ -1,22 +1,29 @@
 import Car from "../models/car.model.js";
 
 export const createCar = async (req, res, next) => {
-  const { model, brand, price } = req.body;
+  const { model, price, description, make, imageUrls } = req.body;
 
-  if (!model || !brand || !price) {
-    res.status(400).json("Something is missing ");
+  if (!model || !make || !price || !description || !imageUrls) {
+    console.log(req.body);
+    return res.status(400).json("Something is missing ");
   }
 
   // Check is not empty
+  // console.log(req.user);
+  const userId = req.user.id;
 
   // create the car
   const car = await Car.create({
     model: model,
-    brand: brand,
+
     price: price,
+    make: make,
+    description: description,
+    userRef: userId,
+    imageUrls: imageUrls,
   });
 
-  return res.status(201).json("Car successful  ");
+  return res.status(201).json(car);
 };
 
 export const getAllCars = async (req, res, next) => {

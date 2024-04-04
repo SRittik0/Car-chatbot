@@ -2,16 +2,13 @@ import mongoose from "mongoose";
 
 const carSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: true, //no number , symbols etc
-    },
     make: {
       type: String,
       required: true,
     },
     model: {
       type: String,
+
       required: true,
     },
     price: {
@@ -27,7 +24,7 @@ const carSchema = new mongoose.Schema(
       required: true,
     },
     userRef: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
   },

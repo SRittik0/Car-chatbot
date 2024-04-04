@@ -8,7 +8,7 @@ const router = express.Router();
 // Update Data
 // Create Listing
 
-router.post("/createCar", verifyToken, createCar);
+router.post("/create", verifyToken, createCar);
 router.get("/allcars", getAllCars);
 
 export default router;
