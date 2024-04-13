@@ -15,6 +15,7 @@ import SearchInput from "./Components/SearchInput";
 import CarListingForm from "./Pages/CarListingForm";
 import PrivateRoute from "./Components/PrivateRoute";
 import UpdateListing from "./Pages/UpdateListing";
+import Listing from "./Pages/Listing";
 
 function App() {
   return (
@@ -26,9 +27,13 @@ function App() {
         <Route path="/sign-up" element={<SignOut />} />
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/create-listing" element={<CreateListing />} />
+          <Route
+            path="/update-listing/:listingId"
+            element={<UpdateListing />}
+          />
         </Route>
 
-        <Route path="/create-listing" element={<CreateListing />} />
         <Route path="/" element={<CarList />} />
         <Route path="/" element={<AboutUs />} />
         <Route path="/" element={<Footer />} />
@@ -38,7 +43,7 @@ function App() {
         <Route path="/bot" element={<B />} />
         <Route path="/search" element={<SearchInput />} />
         <Route path="/carlistingform" element={<CarListingForm />} />
-        <Route path="/update-listing/:listingId" element={<UpdateListing />} />
+        <Route path="/listing/:listingId" element={<Listing />} />
       </Routes>
     </BrowserRouter>
   );
