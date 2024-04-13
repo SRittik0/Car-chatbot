@@ -14,6 +14,7 @@ import B from "./Pages/B";
 import SearchInput from "./Components/SearchInput";
 import CarListingForm from "./Pages/CarListingForm";
 import PrivateRoute from "./Components/PrivateRoute";
+import UpdateListing from "./Pages/UpdateListing";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/bot" element={<B />} />
         <Route path="/search" element={<SearchInput />} />
         <Route path="/carlistingform" element={<CarListingForm />} />
+        <Route path="/update-listing/:listingId" element={<UpdateListing />} />
       </Routes>
     </BrowserRouter>
   );

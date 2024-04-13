@@ -4,6 +4,7 @@ import {
   getAllCars,
   deleteListing,
   updateListing,
+  getListing,
 } from "../controllers/cars.controller.js";
 
 import { verifyToken } from "../utils/verifyUser.js";
@@ -17,5 +18,6 @@ router.post("/create", verifyToken, createCar);
 router.get("/allcars", getAllCars);
 router.delete("/delete/:id", verifyToken, deleteListing);
 router.post("/update/:id", verifyToken, updateListing);
+router.get("/get/:id", getListing);
 
 export default router;
