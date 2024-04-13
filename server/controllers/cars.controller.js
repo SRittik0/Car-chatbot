@@ -1,4 +1,7 @@
+import mongoose from "mongoose";
 import Car from "../models/car.model.js";
+import Listing from "../models/listing.model.js";
+import { errorHandler } from "../utils/error.js";
 
 export const createCar = async (req, res, next) => {
   const { model, price, description, make, imageUrls } = req.body;
@@ -29,4 +32,25 @@ export const createCar = async (req, res, next) => {
 export const getAllCars = async (req, res, next) => {
   const allcars = await Car.find({});
   return res.status(201).json(allcars);
+};
+
+export const deleteListing = async (req, res, next) => {
+  const listing = await Car.findById(req.params.id);
+  console.log(req.user.id);
+  console.log(listing.userRef);
+
+  if (!listing) {
+    return next(errorHandler(404, "Listing not found!"));
+  }
+
+  if (req.user.id !== listing.userRef.toString()) {
+    return next(errorHandler(401, "You can only delete your own listings!"));
+  }
+
+  try {
+    await Car.findByIdAndDelete(req.params.id);
+    res.status(200).json("Listing has been deleted!");
+  } catch (error) {
+    next(error);
+  }
 };
