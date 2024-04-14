@@ -21,6 +21,8 @@ const CarListingForm = () => {
     year: "",
     description: "",
     price: "",
+    fuelType: "",
+    transmission: "",
   });
 
   const [imageUploadError, setImageUploadError] = useState(false);
@@ -123,10 +125,12 @@ const CarListingForm = () => {
     if (
       e.target.type === "number" ||
       e.target.type === "text" ||
-      e.target.type === "textarea"
+      e.target.type === "textarea" ||
+      e.target.type === "checkbox"
     ) {
       setFormData({
         ...formData,
+
         [e.target.id]: e.target.value,
       });
     }
@@ -196,7 +200,7 @@ const CarListingForm = () => {
               htmlFor="price"
               className="block text-sm font-medium text-gray-600 mb-2"
             >
-              Price (GBP)
+              Price (GBP) / per day
             </label>
             <input
               type="number"
@@ -226,7 +230,82 @@ const CarListingForm = () => {
             required
           ></textarea>
         </div>
-
+        <div className="mb-4">
+          <label
+            htmlFor="fuelType"
+            className="block text-sm font-medium text-gray-600 mb-2"
+          >
+            Fuel Type:
+          </label>
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              id="fuelType"
+              name="fuelType"
+              value="Petrol"
+              onChange={handleChange}
+              className="mr-2"
+              checked={formData.fuelType === "Petrol"}
+            />
+            <label htmlFor="fuelType" className="mr-4">
+              Petrol
+            </label>
+            <input
+              type="checkbox"
+              id="fuelType"
+              name="fuelType"
+              value="Diesel"
+              onChange={handleChange}
+              className="mr-2"
+              checked={formData.fuelType === "Diesel"}
+            />
+            <label htmlFor="fuelType">Diesel</label>
+            <input
+              type="checkbox"
+              id="fuelType"
+              name="fuelType"
+              value="Electric"
+              onChange={handleChange}
+              className="mr-2"
+              checked={formData.fuelType === "Electric"}
+            />
+            <label htmlFor="fuelType" className="mr-4">
+              Electric
+            </label>
+          </div>
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="transmission"
+            className="block text-sm font-medium text-gray-600 mb-2"
+          >
+            Transmission:
+          </label>
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              id="transmission"
+              name="transmission"
+              value="Automatic"
+              onChange={handleChange}
+              className="mr-2"
+              checked={formData.transmission === "Automatic"}
+            />
+            <label htmlFor="transmission" className="mr-4">
+              Automatic
+            </label>
+            <input
+              type="checkbox"
+              id="transmission"
+              name="transmission"
+              value="Manual"
+              onChange={handleChange}
+              className="mr-2"
+              checked={formData.transmission === "Manual"}
+            />
+            <label htmlFor="fuelType">Manual</label>
+          </div>
+        </div>
         <div className="mb-4">
           <label
             htmlFor="image"

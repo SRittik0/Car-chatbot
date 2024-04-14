@@ -31,6 +31,14 @@ const carSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    fuelType: {
+      type: String,
+      required: true,
+    },
+    transmission: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 ); //time of creation of user, and update

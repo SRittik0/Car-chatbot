@@ -4,9 +4,27 @@ import Listing from "../models/listing.model.js";
 import { errorHandler } from "../utils/error.js";
 
 export const createCar = async (req, res, next) => {
-  const { model, price, description, make, imageUrls } = req.body;
+  const {
+    model,
+    price,
+    description,
+    make,
+    imageUrls,
+    year,
+    fuelType,
+    transmission,
+  } = req.body;
 
-  if (!model || !make || !price || !description || !imageUrls) {
+  if (
+    !model ||
+    !make ||
+    !price ||
+    !description ||
+    !imageUrls ||
+    !year ||
+    !fuelType ||
+    !transmission
+  ) {
     console.log(req.body);
     return res.status(400).json("Something is missing ");
   }
@@ -24,6 +42,9 @@ export const createCar = async (req, res, next) => {
     description: description,
     userRef: userId,
     imageUrls: imageUrls,
+    year: year,
+    fuelType: fuelType,
+    transmission: transmission,
   });
 
   return res.status(201).json(car);

@@ -49,28 +49,25 @@ export default function Listing() {
   }, [params.listingId]);
 
   return (
-    <main>
+    <main className="p-4 md:p-8 lg:p-12">
       {loading && <p className="text-center my-7 text-2xl">Loading...</p>}
       {error && (
         <p className="text-center my-7 text-2xl">Something went wrong!</p>
       )}
       {listing && (
         <div className="max-w-4xl mx-auto mt-8 p-4 bg-white rounded-lg shadow-lg">
-          <div className="">
-            <div className="">
-              <Swiper navigation>
-                {listing.imageUrls.map((url, index) => (
-                  <SwiperSlide key={index}>
-                    <img
-                      src={url}
-                      alt={`Slide ${index}`}
-                      className="w-full h-auto object-cover rounded-lg"
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
-            <div className="swiper-pagination"></div>
+          <div className="swiper-container">
+            <Swiper navigation>
+              {listing.imageUrls.map((url, index) => (
+                <SwiperSlide key={index}>
+                  <img
+                    src={url}
+                    alt={`Slide ${index}`}
+                    className="w-full h-auto object-cover rounded-lg"
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
           <div className="flex justify-end">
             <button
@@ -100,6 +97,14 @@ export default function Listing() {
             <p className="text-xl text-gray-700 mb-4">
               <span className="font-semibold text-black">Price:</span> $
               {listing.price}
+            </p>
+            <p className="text-xl text-gray-700 mb-2">
+              <span className="font-semibold text-black"> Fuel Type:</span>{" "}
+              {listing.fuelType}
+            </p>
+            <p className="text-xl text-gray-700 mb-2">
+              <span className="font-semibold text-black"> Transmission:</span>{" "}
+              {listing.transmission}
             </p>
             <p className="text-lg text-gray-700 mb-4">
               <span className="font-semibold text-black">Description:</span>{" "}
