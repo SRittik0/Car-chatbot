@@ -27,6 +27,10 @@ const carSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
+    year: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 ); //time of creation of user, and update
