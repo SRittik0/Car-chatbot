@@ -16,6 +16,7 @@ import CarListingForm from "./Pages/CarListingForm";
 import PrivateRoute from "./Components/PrivateRoute";
 import UpdateListing from "./Pages/UpdateListing";
 import Listing from "./Pages/Listing";
+import Search from "./Pages/Search";
 
 function App() {
   return (
@@ -41,9 +42,10 @@ function App() {
         <Route path="/contact" element={<Navbar />} />
         {/* <Route path="/chat" element={<Chat />} /> */}
         <Route path="/bot" element={<B />} />
-        <Route path="/search" element={<SearchInput />} />
+        <Route path="/searchInput" element={<SearchInput />} />
         <Route path="/carlistingform" element={<CarListingForm />} />
         <Route path="/listing/:listingId" element={<Listing />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
     </BrowserRouter>
   );
