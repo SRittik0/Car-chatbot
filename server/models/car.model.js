@@ -4,6 +4,7 @@ const carSchema = new mongoose.Schema(
   {
     make: {
       type: String,
+      trim: true,
       required: true,
     },
     model: {
@@ -37,6 +38,10 @@ const carSchema = new mongoose.Schema(
     },
     transmission: {
       type: String,
+      required: true,
+    },
+    embedding: {
+      type: [Number],
       required: true,
     },
   },

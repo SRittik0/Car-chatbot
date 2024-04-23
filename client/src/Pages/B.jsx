@@ -8,37 +8,56 @@ function B() {
   const [loading, setLoading] = useState(false);
 
   // Function to fetch bot response from OpenAI API
-  const fetchBotResponse = async (userInput) => {
+  const fetchBotResponse = async (userInput, previousMessage) => {
     try {
-      const response = await fetch(
-        "https://api.openai.com/v1/chat/completions",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${API_KEY}`,
-          },
-          body: JSON.stringify({
-            model: "gpt-3.5-turbo",
-            messages: [
-              { role: "system", content: "You are a chatbot." },
-              { role: "user", content: userInput },
-            ],
-          }),
-        }
-      );
-
+      const response = await fetch("http://localhost:5001/server/cars/search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          search: userInput,
+          previous_message: previousMessage,
+        }),
+      });
       if (!response.ok) {
-        throw new Error(
-          `OpenAI API request failed with status: ${response.status}`
-        );
+        throw new Error(`Failed  to fetch with status: ${response.status}`);
       }
 
       const data = await response.json();
-      return (
-        data.choices[0]?.message?.content ||
-        "Sorry, I could not understand that."
-      );
+
+      return data.data.content;
+
+      // const response = await fetch(
+      //   "https://api.openai.com/v1/chat/completions",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Authorization: `Bearer ${API_KEY}`,
+      //     },
+      //     body: JSON.stringify({
+      //       model: "gpt-3.5-turbo",
+      //       messages: [
+      //         { role: "system", content: "You are a chatbot." },
+      //         { role: "user", content: userInput },
+      //       ],
+      //     }),
+      //   }
+      // );
+
+      // if (!response.ok) {
+      //   throw new Error(
+      //     `OpenAI API request failed with status: ${response.status}`
+      //   );
+      // }
+
+      // const data = await response.json();
+      // return (
+      //   data.choices[0]?.message?.content ||
+      //   "Sorry, I could not understand that."
+      // );
     } catch (error) {
       console.error("Error handling bot response:", error.message);
       throw error;
@@ -49,6 +68,7 @@ function B() {
   // Function to handle user messages
   const handleSendMessage = async () => {
     if (!inputMessage.trim()) return;
+    const previousMessage = chatMessages.slice(-5);
 
     // Add user message to chat
     setChatMessages((prevMessages) => [
@@ -59,7 +79,8 @@ function B() {
 
     try {
       // Fetch bot response from OpenAI API
-      const botResponse = await fetchBotResponse(inputMessage);
+
+      const botResponse = await fetchBotResponse(inputMessage, previousMessage);
       setChatMessages((prevMessages) => [
         ...prevMessages,
         { type: "bot", text: botResponse, position: "left" },
