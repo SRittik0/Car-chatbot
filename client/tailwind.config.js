@@ -11,5 +11,8 @@ module.exports = {
       sm: "3rem",
     },
   },
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/line-clamp"),
+    // ...
+  ],
 };

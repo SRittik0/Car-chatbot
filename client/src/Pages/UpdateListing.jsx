@@ -381,7 +381,7 @@ const CarListingForm = () => {
             type="submit"
             className="bg-slate-700 text-white py-2 px-4 rounded-lg uppercase hover:bg-yellow-500 cursor-pointer"
           >
-            {loading ? "Creating..." : "Update Listing"}
+            {loading ? "Updating..." : "Update Listing"}
           </button>
           {error && <p className="text-red-700 text-sm">{error}</p>}
         </div>
