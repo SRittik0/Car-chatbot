@@ -150,9 +150,16 @@ export const getListings = async (req, res, next) => {
 
     if (fuelType === undefined || fuelType === "all") {
       fuelType = { $in: ["Petrol", "Diesel", "Electric"] };
+    } else {
+      console.log(fuelType);
+
+      const array_fuel = fuelType.split(",");
+      console.log(array_fuel);
+      fuelType = { $in: array_fuel };
     }
 
-    let transmission = req.query.transmission;
+    let transmission = req.query.type;
+    console.log(transmission);
 
     if (transmission === undefined || transmission === "all") {
       transmission = { $in: ["Automatic", "Manual"] };
@@ -165,7 +172,7 @@ export const getListings = async (req, res, next) => {
     const order = req.query.order || "desc";
 
     const listings = await Car.find({
-      name: { $regex: searchTerm, $options: "i" },
+      make: { $regex: searchTerm, $options: "i" },
       fuelType,
       transmission,
     })
@@ -230,23 +237,12 @@ export const searchCar = async (req, res, next) => {
         },
       },
     ];
-
     const aggCursor = await Car.aggregate(agggregate);
 
     const cars_object = [];
     for await (const doc of aggCursor) {
       cars_object.push(doc);
     }
-
-    // return res.status(200).json(cars_object);
-
-    // return res.status(200).json({ message: "success", data: cars_object });
-
-    // context
-    // const prompt = `Based on these cars: ${JSON.stringify(
-    //   cars_object
-    // )} \n\n Query: ${searchQuery} \n\n Answer:`;
-
     // With previous messages
     const prompt = `Consider these previous message as well ${JSON.stringify(
       previousMessage
@@ -261,3 +257,12 @@ export const searchCar = async (req, res, next) => {
     next(error);
   }
 };
+
+// return res.status(200).json(cars_object);
+
+// return res.status(200).json({ message: "success", data: cars_object });
+
+// context
+// const prompt = `Based on these cars: ${JSON.stringify(
+//   cars_object
+// )} \n\n Query: ${searchQuery} \n\n Answer:`;
